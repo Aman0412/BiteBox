@@ -1,0 +1,413 @@
+*{
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  color: #333333;
+  /* background-color: #F5F5F5; */
+  /* border: 1px solid green; */
+
+}
+.navbar{
+  display: flex;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+  padding: 1rem;
+  border-bottom: 1px solid #CFCFCF;
+  
+  
+}
+
+.logo-image{
+  height: 40px;
+  width: 40px;
+}
+
+.logo-text{
+  margin-left: 0.5rem;
+  font-size: 30px;
+}
+.form{
+  display: flex;
+  justify-content: center;
+}
+form{
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: max-content;
+  gap:0.5rem;  
+  
+}
+
+fieldset{
+  border: 0;
+  
+}
+
+.number-of-meals{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding-left: 0;
+  list-style-type: none;
+  gap:0.5rem;
+}
+
+.number-of-meals > li{
+  width: 13rem;
+  height: 75px;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.protein-preference{
+  display: flex;
+  padding-left: 0;
+  list-style-type: none;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.protein-preference > li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 13rem;
+  height: 75px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.protein-preference > input{
+  margin-right: 10000px;
+}
+
+.meal-size{
+  display: flex;
+  padding-left: 0;
+  list-style-type: none;
+  gap: 0.5rem;
+}
+
+.meal-size > li{
+  width: 19.85rem;
+  height: 75px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.form-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container > h3{
+  text-align: center;
+
+  margin-bottom: 1vh;
+}
+
+.form-button{
+  margin-top: 1rem;
+  height: 8vh;
+  border-radius: 10px;
+  width: 100%;
+}
+
+@media screen and (max-width: 700px){
+  .meal-size{
+    flex-direction: column;
+  }
+  .protein-preference{
+    flex-direction: column;
+  }
+  .number-of-meals{
+    grid-template-columns: 1fr 1fr;
+  }
+  .number-of-meals > li{
+    width: 100px;
+  }
+}
+
+.get-started-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+
+}
+
+.get-started-form-container{
+  /* border: green solid; */
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  margin-top:4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 40px;
+}
+
+.get-started-text{
+  font-size: 2rem;;
+}
+
+
+
+.get-started-form{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  /* border: solid green; */
+}
+
+.get-started-form > input{
+  width: 35rem;
+  height:2vh;
+  border-radius: 12px;
+  margin: 0;
+  font-size: 30px;
+  padding: 20px;
+  border-color: #ffffff;
+}
+
+.get-started-form >button{
+  margin-top: 3vh;
+  width: 100%;
+  background-color: #EB2930;
+  opacity: 80%;
+  border-radius: 12px;
+  color:white;
+  font-weight: 600;
+  font-size:30px;
+}
+
+
+.loading{
+   position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+    margin: auto;
+}
+
+.card-container{
+  display: flex;
+  justify-content: center;
+  padding: 4rem;
+  gap: 4rem;
+  flex-wrap: wrap;
+}
+
+.meal-card{
+  display: flex;
+  border-radius: 12px;
+  width: 250px;
+  height: fit-content;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.meal-image{
+  height: 125px;
+  object-fit: cover;
+
+}
+
+.meal-content{
+  width: 100%;
+}
+
+
+.calorie-badge{
+  background-color: #EAEFD4;
+  width: fit-content;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: 700;
+  margin-top: 10px;
+  border-radius: 30px;
+  margin-bottom: 10px;
+}
+.quantity-control{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+  align-items: center;
+  /* border: solid green; */
+}
+
+.quantity-control > button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-color: #333333;
+  color:#ffffff;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.meals-body{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.floating-bar{
+  display: flex;
+  padding: 2rem;
+  width: 100%;
+  margin-bottom: 0px;
+  justify-content: space-between;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: fixed;
+  bottom: 0;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.details-container{
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.details-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.details-form > input{
+  height:2rem;
+  width: 25rem;
+}
+
+.details-submit{
+  width:25rem;
+  align-self: flex-end;
+  border-radius: 12px;
+  height: 2rem;
+  margin-top: 2rem;
+}
+
+.cart-body{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.cart{
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  width: 100%;
+  
+
+}
+
+.cart-items{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.cart-details{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.cart-payment{
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+  
+}
+.payment{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.cart-item{
+  padding: 2rem;
+  display: flex;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width:90%;
+
+  margin-bottom: 1rem;
+
+}
+.cart-info{
+  margin-left: 1rem;
+}
+
+.payment-info{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.payment > button{
+  margin: 2rem;
+  height: 6vh;
+  border-radius: 12px;
+  border: none;
+  background-color: #333333;
+  color: #ffffff;
+  font-weight: 600;
+  width: 100%;
+}
+
+.cart-details {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .cart-details {
+    flex-direction: column;
+    align-items: center; /* Center align items in the cross axis */
+  }
+
+  .cart-items, .payment {
+    width: 100%; /* Ensure child elements take full width */
+  }
+}
