@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 
-
 export default function Plan(){
     const {mealPlan, setMealPlan} = useContext(MealPlanContext);
     const { userid } = useContext(UseridContext); // Use the context

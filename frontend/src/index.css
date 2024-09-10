@@ -9,11 +9,143 @@
 .navbar{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 0;
   width: 100%;
   padding: 1rem;
   border-bottom: 1px solid #CFCFCF;
   
+  
+}
+
+.logo{
+  display: flex;
+}
+
+.navbar-links{
+  display: flex;
+  padding-right: 3rem;
+  gap: 1rem;
+}
+
+.homepage-banner{
+  display: flex;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.homepage-banner img{
+  display: block;
+  border-radius: 15px;
+  width:80%;
+  height: auto;
+  object-fit: cover;
+}
+
+.overlay{
+  position: absolute;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+
+  
+}
+
+.footer{
+  background-color: #333333;
+}
+
+.overlay h2{
+  color: #ffffff;
+  text-align: center;
+  /* background-color: #ffffff; */
+  border-radius: 12px;
+  padding:0.6rem;
+  font-size: 2rem;
+  /* box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; */
+}
+
+@media (max-width:1000px) {
+  .overlay h2{
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width:400px) {
+  .overlay h2{
+    font-size: 1rem;
+  }
+}
+
+
+.overlay-button{
+  width: 50%;
+  height: 4vh;
+  border-radius: 12px;
+  color: #000000;
+  font-weight: 700;
+}
+
+.navbar-links > button{
+  padding: 1rem;
+  border-radius: 12px;
+  border: none;
+}
+
+.how-it-works{
+  display: flex;
+  flex-direction: column;
+  margin: 3rem auto;
+  align-items: flex-start;
+  width: 80%;
+}
+
+.card-wrapper{
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  height: fit-content;
+  flex-wrap: wrap;
+}
+
+.how-it-works-card{
+  width:20%;
+  padding:1rem;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.how-it-works-card > p ,h3{
+  font-size: small;
+}
+
+.homepage-testimonial{
+  width: 40%;
+  margin: auto;
+  border-radius: 12px;
+}
+
+.homepage-testimonial > h2{
+  /* text-align: center; */
+  margin-bottom: 1rem;
+}
+
+.swiper-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 12px;
   
 }
 
@@ -26,6 +158,12 @@
   margin-left: 0.5rem;
   font-size: 30px;
 }
+
+.homepage-body{
+  width: 100%;
+}
+
+
 .form{
   display: flex;
   justify-content: center;
@@ -411,3 +549,4 @@ fieldset{
     width: 100%; /* Ensure child elements take full width */
   }
 }
+
