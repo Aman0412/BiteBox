@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Meal, Customer, MealPlan, Order, OrderItem
+from .models import Meal, Customer, MealPlan, Order, OrderItem, CustomerAddress
 
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,17 +18,27 @@ class MealSerializer(serializers.ModelSerializer):
             "image"
         ]
         
+class CustomerAddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerAddress
+        fields = [
+            "postcode",
+            "address",
+            "city",
+            "county"
+        ]
 
+ 
 class CustomerSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField()
+    address_details = CustomerAddressSerializer(many=True, required=False)
     class Meta:
         model = Customer
         fields = [
             "id",
             "user_id",
             "phone_number",
-            "address",
-            "postcode",
+            "address_details"
         ]
 
 class UpdateCustomerSerializer(serializers.ModelSerializer):
@@ -80,4 +90,5 @@ class OrderSerializer(serializers.ModelSerializer):
             "delivery_date",
             "items"
         ]
-        
+
+       

@@ -13,7 +13,13 @@ class Customer(models.Model):
     def __str__(self) -> str:
         return f"{self.user.first_name} {self.user.last_name}"  
 
-# class DeliveryDetail(models.Model):
+class CustomerAddress(models.Model):
+    postcode = models.CharField(max_length=10)
+    address = models.CharField(max_length=255)
+    city = models.CharField(max_length=100)
+    county = models.CharField(max_length=100)
+    
+    customer = models.ForeignKey(Customer, models.CASCADE, related_name="address_details")
 
     
 class Meal(models.Model):
