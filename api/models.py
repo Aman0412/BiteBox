@@ -4,8 +4,6 @@ from django.utils.html import mark_safe
 
 # Create your models here.
 class Customer(models.Model):
-    address = models.CharField(max_length=255)
-    postcode = models.CharField(max_length=10)
     phone_number = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
