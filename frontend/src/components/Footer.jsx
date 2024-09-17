@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 
 const Footer = () => {
   const styles = {
@@ -65,15 +65,6 @@ const Footer = () => {
           <div>
             <h2 style={styles.heading}>About Us</h2>
             <p style={{color:"#ffffff"}}>We are a company dedicated to providing excellent services and products to our customers.</p>
-          </div>
-          <div>
-            <h2 style={styles.heading}>Quick Links</h2>
-            <ul style={styles.list}>
-              <li><a href="#" style={styles.link}>Home</a></li>
-              <li><a href="#" style={styles.link}>Products</a></li>
-              <li><a href="#" style={styles.link}>Services</a></li>
-              <li><a href="#" style={styles.link}>Contact</a></li>
-            </ul>
           </div>
           <div>
             <h2 style={styles.heading}>Contact Us</h2>

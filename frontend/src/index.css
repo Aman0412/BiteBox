@@ -326,12 +326,14 @@ fieldset{
 .get-started-form >button{
   margin-top: 3vh;
   width: 100%;
-  background-color: #EB2930;
+  background-color: #679b09;
+  border:none;
   opacity: 80%;
   border-radius: 12px;
   color:white;
   font-weight: 600;
   font-size:30px;
+  cursor:pointer;
 }
 
 

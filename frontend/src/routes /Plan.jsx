@@ -4,6 +4,7 @@ import { MealPlanContext, UseridContext } from "../App";
 import { useNavigate } from "react-router";
 import api from "../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
+import { Link } from "react-router-dom";
 
 export default function Plan(){
     const {mealPlan, setMealPlan} = useContext(MealPlanContext);
@@ -23,26 +24,28 @@ export default function Plan(){
             }
         })
     }
+    console.log(isSignedIn)
 
     function handleSubmit(event){
         event.preventDefault();
-
-        setIsNextClicked(true)
         if (isSignedIn){
-            //POST MEAL PLAN TO API
-            //REDIRECT TO MEALS PAGE
             navigate("/join-now/meals")
+        } else{
+            setIsNextClicked(true)
         }
 
     }
 
     // console.log(userid)
     // console.log(mealPlan)
+    console.log(isNextClicked)
+    console.log(isSignedIn)
+    console.log(isNextClicked && !(isSignedIn))
     
     const MEAL_SIZE_OPTIONS = ["S", "L"]
     const PROTEIN_PREFERENCE_OPTIONS = ["MO", "MV", "VO"]
     const MEAL_NUMBER_OPTIONS = [6, 8, 10, 12, 14, 16];
-    return !isNextClicked && !(isSignedIn) ? (
+    return !(isNextClicked) && isSignedIn ? (
         <div>
             <Navbar />
             <div className="form">
@@ -211,9 +214,15 @@ function GetStarted(){
                         value={userObject.password}
                         onChange={handleChange}
                     />
+
                     <button onClick={handleSubmit}>Next</button>
                 </form>
+                <div className="already-member" style={{display:"flex", flexDirection:"row", gap:"10px", margin:" 1rem auto 0"}}>
+                        <p>Have an account?</p>
+                        <Link to="/login" style={{color:"#0000EE"}}>Login</Link>
+                    </div>
             </div>
+                                
         </div>
     )
 }

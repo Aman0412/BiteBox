@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import api from "../api";
+import axios from "axios";
 
 export default function Login(){
     localStorage.clear()
@@ -32,15 +33,21 @@ export default function Login(){
                 username: userObject.username,
                 password: userObject.password
             })
-            localStorage.setItem(ACCESS_TOKEN, res.data.access)
-            localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
-            const user_res = await api.get("auth/users/me/")
+            await localStorage.setItem(ACCESS_TOKEN, res.data.access)
+            await localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+            const user_res = await axios.get(import.meta.env.VITE_API_URL + "/auth/users/me/", {
+                headers: {
+                    Authorization: `JWT ${res.data.access}`
+                }
+            })
             setUserid(user_res.data.id)
-            navigate("/join-now/plan/")
 
             
         } catch (error){
             console.log(error)
+        }
+        finally{
+            navigate("/join-now/plans/")
         }
     }
 

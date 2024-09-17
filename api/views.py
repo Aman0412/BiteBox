@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import mixins
 from .models import Meal, Customer, Order, OrderItem
@@ -19,7 +19,10 @@ class CustomerViewSet(mixins.CreateModelMixin,
 
     @action(detail=False)
     def me(self, request):
-        return Response(request.user.id)
+        customer = get_object_or_404(Customer, id=request.user.id)
+        serializer = CustomerSerializer(customer)
+        return Response(serializer.data)
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
