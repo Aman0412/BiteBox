@@ -19,6 +19,14 @@ class CustomerAddress(models.Model):
     
     customer = models.ForeignKey(Customer, models.CASCADE, related_name="address_details")
 
+    def __str__(self) -> str:
+        return f"""
+                Address:{self.address}
+                City: {self.city}
+                County: {self.county}
+                Postcode: {self.postcode}"""
+
+
     
 class Meal(models.Model):
     name = models.CharField(max_length=255)
@@ -40,8 +48,10 @@ class Meal(models.Model):
     
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
+    customer_address = models.ForeignKey(CustomerAddress, on_delete=models.PROTECT)
     delivery_date = models.DateField()
     ordered_at = models.DateTimeField(auto_now_add=True)
+    
 
     def __str__(self) -> str:
         return f"Order ID: #{self.id} for {self.customer.user.first_name} {self.customer.user.last_name}"
@@ -50,6 +60,6 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.PROTECT, related_name="items")
     meal = models.ForeignKey(Meal, on_delete=models.PROTECT)
     quantity = models.PositiveSmallIntegerField()
-    
+     
 # class PaymentDetails(models.Model):
     # 

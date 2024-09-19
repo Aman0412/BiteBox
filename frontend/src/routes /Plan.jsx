@@ -38,9 +38,7 @@ export default function Plan(){
 
     // console.log(userid)
     // console.log(mealPlan)
-    console.log(isNextClicked)
-    console.log(isSignedIn)
-    console.log(isNextClicked && !(isSignedIn))
+    console.log(!(isNextClicked) && (isSignedIn))
     
     const MEAL_SIZE_OPTIONS = ["S", "L"]
     const PROTEIN_PREFERENCE_OPTIONS = ["MO", "MV", "VO"]

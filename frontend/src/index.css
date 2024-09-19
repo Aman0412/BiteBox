@@ -552,3 +552,31 @@ fieldset{
   }
 }
 
+.existing-container{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: fit-content ;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-top: 6vh;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.address-card{
+  padding: none;
+  border-radius: 12px;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.existing-customer-submit{
+  width: 100%;
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: #679b09;
+  border: none;
+  color:#ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-radius: 6px;
+}

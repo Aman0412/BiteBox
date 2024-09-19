@@ -7,12 +7,19 @@ import api from "../api";
 export default function Details(){
     const {userid} = useContext(UseridContext);
     const location = useLocation();
+    // const [customer, setCustomer] = useState({})
         // const { createOrderItems } = location.state
+    
+
+
+
     const navigate = useNavigate()
     const [customerDetails, setCustomerDetails] = useState({
         postcode:"",
         address:"",
         phone_number:"",
+        county:"",
+        city:""
     });
     // console.log(userid)
 
@@ -54,26 +61,60 @@ export default function Details(){
         navigate("/cart", { state: { order_id:order_response.data.id } })
     }
 
-
-    return ( 
-        <div>
-            <Navbar />
-            <div className="details-container">
-                <form className="details-form">
-                <h2>Enter Your Details</h2>
-                    <label htmlFor="postcode">Postcode</label>
-                    <input type="text" id="postcode" value={customerDetails.postcode} name="postcode" onChange={handleChange} />
-                    <label htmlFor="address">Address</label>
-                    <input type="text" id="address"value={customerDetails.address} name="address" onChange={handleChange} />
-                    <label htmlFor="phone_number">Phone Number</label>
-                    <input type="tel" id="phone_number" value={customerDetails.phone_number} name="phone_number" onChange={handleChange} />
-                </form>
-                <button className="details-submit" onClick={handleSumbit}>
-                    Next
-                </button>
-            </div>
+    return (
+      <div>
+        <Navbar />
+        <div className="details-container">
+          <form className="details-form">
+            <h2>Enter Your Details</h2>
+            <label htmlFor="postcode">Postcode</label>
+            <input
+              type="text"
+              id="postcode"
+              value={customerDetails.postcode}
+              name="postcode"
+              onChange={handleChange}
+            />
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              id="address"
+              value={customerDetails.address}
+              name="address"
+              onChange={handleChange}
+            />
+            <label htmlFor="county">County</label>
+            <input
+              type="text"
+              id="county"
+              value={customerDetails.county}
+              name="county"
+              onChange={handleChange}
+            />            
+            <label htmlFor="city">City/Town</label>
+            <input
+              type="text"
+              id="city"
+              value={customerDetails.city}
+              name="city"
+              onChange={handleChange}
+            /> 
+            <label htmlFor="phone_number">Phone Number</label>
+            <input
+              type="tel"
+              id="phone_number"
+              value={customerDetails.phone_number}
+              name="phone_number"
+              onChange={handleChange}
+            />
+          </form>
+          <button className="details-submit" onClick={handleSumbit}>
+            Next
+          </button>
         </div>
-    )
+      </div>
+    );
+    
 
 
 }

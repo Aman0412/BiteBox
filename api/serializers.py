@@ -22,10 +22,12 @@ class CustomerAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerAddress
         fields = [
+            "id",
             "postcode",
             "address",
             "city",
-            "county"
+            "county",
+            "customer"
         ]
 
  
@@ -87,6 +89,7 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "customer",
+            "customer_address",
             "delivery_date",
             "items"
         ]

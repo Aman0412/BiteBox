@@ -11,6 +11,7 @@ import { createContext, useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoutes";
 import Login from "./routes /Login";
 import Details from "./routes /Details";
+import ExistingAddress from "./routes /ExistingDetails";
 
 const router = createBrowserRouter([
       {
@@ -47,6 +48,14 @@ const router = createBrowserRouter([
     element:(
       <ProtectedRoute>
         <Cart />
+      </ProtectedRoute>
+    )
+   },
+   {
+    path:"/existing-details",
+    element: (
+      <ProtectedRoute>
+        <ExistingAddress />
       </ProtectedRoute>
     )
    }
