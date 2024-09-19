@@ -28,7 +28,7 @@ export default function Cart(){
           <h1>Order Overview</h1>
           <div className="cart-details">
             <div className="cart-items">
-              {order !== null ? (
+              {order != null ? (
                 order.items.map((item) => (
                   <CartItem
                     key={item.meal.id}
