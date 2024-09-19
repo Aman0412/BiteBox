@@ -51,7 +51,18 @@ class Order(models.Model):
     customer_address = models.ForeignKey(CustomerAddress, on_delete=models.PROTECT)
     delivery_date = models.DateField()
     ordered_at = models.DateTimeField(auto_now_add=True)
-    
+
+    PAYMENT_STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('refunded', 'Refunded'),
+    ]
+    payment_status = models.CharField(
+        max_length=10,
+        choices=PAYMENT_STATUS_CHOICES,
+        default="pending"
+    )
 
     def __str__(self) -> str:
         return f"Order ID: #{self.id} for {self.customer.user.first_name} {self.customer.user.last_name}"
