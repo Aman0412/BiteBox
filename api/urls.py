@@ -7,5 +7,6 @@ router.register("meals", views.MealViewSet)
 router.register("customers", views.CustomerViewSet)
 router.register("orders", views.OrderViewSet, basename="Order")
 router.register("orderitems", views.OrderItemViewSet, basename="OrderItem")
+router.register("configuration", views.ConfigurationView)
 
 urlpatterns = router.urls

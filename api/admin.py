@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Meal, Order, OrderItem, Customer, CustomerAddress
+from django.http import HttpRequest
+from .models import Meal, Order, OrderItem, Customer, CustomerAddress, MealPlan, Configuration
 # Register your models here.
 
 @admin.register(Meal)
@@ -12,7 +13,7 @@ class CustomerAddressInline(admin.TabularInline):
 
 @admin.register(Customer)
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ["user__first_name", "user__last_name"]
+    list_display = ["user__username","user__first_name", "user__last_name"]
     inlines = [
         CustomerAddressInline
     ]
@@ -22,8 +23,18 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["customer", "delivery_date", "ordered_at", "customer_address"]
+    list_display = ["customer", "delivery_date", "ordered_at", "customer_address", "payment_status"]
     inlines = [OrderItemInline]
     def items_title(self, orderitem):
         return orderitem.meal.name
+@admin.register(MealPlan)
+class MealPlanAdmin(admin.ModelAdmin):
+    list_display = ["protein_preference", "meal_size", "number_of_meals", "price"]
+    list_editable = ["price"]
+
+@admin.register(Configuration)
+class ConfigurationAdmin(admin.ModelAdmin):
+    list_display = ["delivery_price"]
+    def has_add_permission(self, request: HttpRequest) -> bool:
+        return False
 

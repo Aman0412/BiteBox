@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import api from "../api";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Login(){
     localStorage.clear()
@@ -53,18 +54,38 @@ export default function Login(){
 
     console.log(userid)
     return (
-
-        <div>
-            <Navbar />
-        
-            <form>
-                <label htmlFor="username">Username</label>
-                <input type="text" id="username"name="username" value={userObject.username} onChange={handleChange} /> 
-                <label htmlFor="password">Password</label>
-                <input type="password" id="password" name="password" value={userObject.password} onChange={handleChange}/>
-
-                <button onClick={handleSubmit}>Login</button>
-            </form>
+      <div>
+        <Navbar />
+        <div className="login-form-container">
+          <h2>Login</h2>
+          <form>
+            <div>
+              <label htmlFor="username">Username</label>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={userObject.username}
+                onChange={handleChange}
+              />
+            </div>
+            <div>
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={userObject.password}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="login-get-started" style={{display:"flex",flexDirection:"row", gap:"0.4rem", width:"100%"}}>
+              <p>Are you a new customer?</p> 
+              <Link style={{color:"blue"}} to="/join-now/plans"> Click Here</Link>
+            </div>
+            <button onClick={handleSubmit}>Login</button>
+          </form>
         </div>
-    )
+      </div>
+    );
 }

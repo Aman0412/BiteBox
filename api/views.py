@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import mixins
-from .models import Meal, Customer, Order, OrderItem, CustomerAddress
+from .models import Meal, Customer, Order, OrderItem, CustomerAddress, Configuration
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .serializers import MealSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, CustomerAddressSerializer,UpdateCustomerSerializer, CreateOrderItemSerializer
+from .serializers import MealSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, CustomerAddressSerializer,UpdateCustomerSerializer, CreateOrderItemSerializer, ConfigurationSerializer
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 # Create your views here.
 class MealViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
@@ -47,6 +49,7 @@ class CustomerViewSet(mixins.CreateModelMixin,
 
                 
 class OrderViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrderSerializer
     queryset=Order.objects.all()
 
@@ -56,3 +59,9 @@ class OrderItemViewSet(mixins.CreateModelMixin,
                        viewsets.GenericViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+
+
+class ConfigurationView(viewsets.ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = ConfigurationSerializer
+    queryset = Configuration.objects.all()

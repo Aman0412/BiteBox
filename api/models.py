@@ -2,7 +2,11 @@ from django.db import models
 from django.conf import settings
 from django.utils.html import mark_safe
 
-# Create your models here.
+class Configuration(models.Model):
+    delivery_price = models.DecimalField(max_digits=4, decimal_places=2)
+
+    def __str__(self):
+        return f"Configuration (Delivery Price: {self.delivery_price})"
 class Customer(models.Model):
     phone_number = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -21,9 +25,9 @@ class CustomerAddress(models.Model):
 
     def __str__(self) -> str:
         return f"""
-                Address:{self.address}
-                City: {self.city}
-                County: {self.county}
+                Address:{self.address}\n
+                City: {self.city}\n
+                County: {self.county}\n
                 Postcode: {self.postcode}"""
 
 
@@ -45,6 +49,38 @@ class Meal(models.Model):
 
     def image_tag(self):
         return mark_safe('<img src="/media/%s" width="150" height="150" />' % (self.image))
+
+class MealPlan(models.Model):
+    MEAT_ONLY = "MO"
+    MEAT_AND_VEGAN = "MV"
+    VEGAN_ONLY = "VO"
+    PROTEIN_PREFERENCE_OPTIONS = [
+        (MEAT_ONLY,"Meat Only"),
+        (MEAT_AND_VEGAN, "Meat and Vegan"),
+        (VEGAN_ONLY, "Vegan Only"),
+    ]
+
+    STANDARD_SIZE = "S"
+    LARGE_SIZE = "L"
+    MEAL_SIZE_OPTIONS = [
+        (STANDARD_SIZE, "Standard"),
+        (LARGE_SIZE, "Large")
+    ]
+
+    protein_preference = models.CharField(
+        max_length=2, 
+        choices=PROTEIN_PREFERENCE_OPTIONS,
+        default=MEAT_ONLY        
+    )
+    meal_size = models.CharField(
+        max_length=1,
+        choices=MEAL_SIZE_OPTIONS,
+        default=STANDARD_SIZE
+    )
+    number_of_meals = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+
+
     
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)

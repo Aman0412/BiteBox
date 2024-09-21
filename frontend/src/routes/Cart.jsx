@@ -55,6 +55,10 @@ export default function Cart(){
                   <p>{mealPlan.meal_size === "S" ? "Standard" : "Large"}</p>
                 </div>
                 <hr />
+                <div className="payment-info">
+                  <p>Delivery Date</p> <p>{order != null && order.delivery_date}</p>
+                </div>
+                <hr />
                 <label htmlFor="discount">Discount Code</label>
                 <input type="text" style={{ height: "5vh" }} id="discount" />
                 <hr />

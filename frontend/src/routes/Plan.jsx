@@ -1,5 +1,5 @@
 import Navbar from "../components/Navbar";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MealPlanContext, UseridContext } from "../App";
 import { useNavigate } from "react-router";
 import api from "../api";
@@ -11,9 +11,20 @@ export default function Plan(){
     const { userid } = useContext(UseridContext); // Use the context
     const [isSignedIn, setIsSignedIn] = useState(userid != null)
     const [isNextClicked, setIsNextClicked] = useState(false)
+    const [deliveryPrice, setDeliveryPrice] = useState(0.00);
     const navigate = useNavigate();
 
     // console.log(userid)
+    useEffect(() => {
+        async function getDeliveryPrice(){
+            const res = await api.get("/api/configuration/");
+            console.log(res.data)
+            setDeliveryPrice(parseFloat(res.data[0].delivery_price))
+        }
+        getDeliveryPrice();
+        console.log(deliveryPrice)
+        setMealPlan(plan => ({...plan, price:plan.price + deliveryPrice}))
+    }, [])
     
     function handleChange(event){
         const {name, value} = event.target;
@@ -24,7 +35,6 @@ export default function Plan(){
             }
         })
     }
-    console.log(isSignedIn)
 
     function handleSubmit(event){
         event.preventDefault();
@@ -35,79 +45,113 @@ export default function Plan(){
         }
 
     }
-
-    // console.log(userid)
-    // console.log(mealPlan)
-    console.log(!(isNextClicked) && (isSignedIn))
-    
+   
     const MEAL_SIZE_OPTIONS = ["S", "L"]
     const PROTEIN_PREFERENCE_OPTIONS = ["MO", "MV", "VO"]
     const MEAL_NUMBER_OPTIONS = [6, 8, 10, 12, 14, 16];
-    return !(isNextClicked) && isSignedIn ? (
-        <div>
-            <Navbar />
-            <div className="form">
-            <form>
-                <div className="form-container">
-                    <h3>Meal Size</h3>
-                    <ul className="meal-size"> 
-                        {MEAL_SIZE_OPTIONS.map(OPTION =>
-                            <li key={OPTION}>
-                                <input type="radio" 
-                                        id={OPTION} 
-                                        name="meal_size" 
-                                        value={OPTION} 
-                                        onChange={handleChange} 
-                                        checked={mealPlan.meal_size === OPTION} 
-                                        className="option"/>
-                                <label htmlFor={OPTION}>{OPTION === "S" ? "Standard" : "Large"}</label>
-                            </li>
-                        )}
-                    </ul>
+    return isNextClicked && !isSignedIn ? (
+      <GetStarted />
+    ) : (
+      <div>
+        <Navbar />
+        <div className="form">
+          <form>
+            <div className="form-container">
+              <h3>Meal Size</h3>
+              <ul className="meal-size">
+                {MEAL_SIZE_OPTIONS.map((OPTION) => (
+                  <li key={OPTION}>
+                    <input
+                      type="radio"
+                      id={OPTION}
+                      name="meal_size"
+                      value={OPTION}
+                      onChange={handleChange}
+                      checked={mealPlan.meal_size === OPTION}
+                      className="option"
+                    />
+                    <label htmlFor={OPTION}>
+                      {OPTION === "S" ? "Standard" : "Large"}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="form-container">
+              <h3>Protein Preference</h3>
+              <ul className="protein-preference">
+                {PROTEIN_PREFERENCE_OPTIONS.map((OPTION) => {
+                  let name;
+                  if (OPTION == "MV") {
+                    name = "Meat and Vegan";
+                  } else if (OPTION == "MO") {
+                    name = "Meat Only";
+                  } else {
+                    name = "Vegan Only";
+                  }
+
+                  return (
+                    <li key={OPTION}>
+                      <input
+                        type="radio"
+                        id={OPTION}
+                        name="protein_preference"
+                        value={OPTION}
+                        onChange={handleChange}
+                        checked={mealPlan.protein_preference === OPTION}
+                        className="option"
+                      />
+                      <label htmlFor={OPTION}>{name}</label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="form-container">
+              <h3>Number of Meals</h3>
+              <ul className="number-of-meals">
+                {MEAL_NUMBER_OPTIONS.map((SIZE) => (
+                  <li key={SIZE}>
+                    <input
+                      type="radio"
+                      id={SIZE}
+                      name="number_of_meals"
+                      value={SIZE}
+                      checked={mealPlan.number_of_meals == SIZE}
+                      onChange={handleChange}
+                      className="option"
+                    />
+                    <label htmlFor={SIZE}>{SIZE}</label>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <h3>Payment Info</h3>
+            <div className="plan-price-info">
+                <div className="plan-price-row">
+                    <p>Main Meals ({mealPlan.number_of_meals})</p>
+                    <p>£ {mealPlan.price}</p>
                 </div>
-
-                <div className="form-container">
-                    <h3>Protein Preference</h3>
-                    <ul className="protein-preference">
-
-                    {PROTEIN_PREFERENCE_OPTIONS.map(OPTION => {
-                        let name;
-                        if (OPTION == "MV"){
-                            name = "Meat and Vegan";
-                        } else if (OPTION == "MO") {
-                            name = "Meat Only"
-                        } else {
-                            name = "Vegan Only"
-                        }
-                        
-                        return (<li key={OPTION}>
-                            <input type="radio" id={OPTION} name="protein_preference" value={OPTION} onChange={handleChange} checked={mealPlan.protein_preference === OPTION} className="option"/>
-                            <label htmlFor={OPTION}>{name}</label>
-                        </li>)
-                    })}
-                    
-                    
-                    </ul>
+                <hr />
+                <div className="plan-price-row">
+                    <p>Delivery Price</p>
+                    <p>£ {deliveryPrice}</p>
                 </div>
-                <div className="form-container"> 
-                    <h3>Number of Meals</h3>
-                    <ul className="number-of-meals">
-
-                        {MEAL_NUMBER_OPTIONS.map(SIZE => (<li key={SIZE}> 
-                            <input type="radio" id={SIZE} name="number_of_meals" value={SIZE} checked={mealPlan.number_of_meals == SIZE} onChange={handleChange} className="option"/>
-                            <label htmlFor={SIZE}>{SIZE}</label> 
-                        </li>) ) }
-                        
-                    </ul>
+                <hr />
+                <div className="plan-price-row">
+                    <p>Total Price</p>
+                    <p>£ {mealPlan.price}</p>
                 </div>
+            </div>
 
-            
-                <button className="form-button" onClick={handleSubmit} >Next</button>
-            </form>
-            </ div>
+            <button className="form-button" onClick={handleSubmit}>
+              Next
+            </button>
+          </form>
         </div>
-    
-    ) : <GetStarted />
+      </div>
+    );
 }
 
 

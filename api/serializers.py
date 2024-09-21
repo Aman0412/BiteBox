@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Meal, Customer, Order, OrderItem, CustomerAddress
+from .models import Meal, Customer, Order, OrderItem, CustomerAddress, Configuration
 
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
@@ -27,7 +27,6 @@ class CustomerAddressSerializer(serializers.ModelSerializer):
             "address",
             "city",
             "county",
-            "customer"
         ]
 
  
@@ -92,6 +91,13 @@ class OrderSerializer(serializers.ModelSerializer):
             "customer_address",
             "delivery_date",
             "items"
+        ]
+
+class ConfigurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Configuration
+        fields = [
+            "delivery_price"
         ]
 
        
