@@ -3,15 +3,15 @@ import {
   RouterProvider,
 } from "react-router-dom"
 
-import Homepage from "./routes /Homepage";
-import Plan from "./routes /Plan";
-import Meals from "./routes /Meals";
-import Cart from "./routes /Cart";
+import Homepage from "./routes/Homepage";
+import Plan from "./routes/Plan";
+import Meals from "./routes/Meals";
+import Cart from "./routes/Cart";
 import { createContext, useState } from "react";
 import ProtectedRoute from "./components/ProtectedRoutes";
-import Login from "./routes /Login";
-import Details from "./routes /Details";
-import ExistingAddress from "./routes /ExistingDetails";
+import Login from "./routes/Login";
+import Details from "./routes/Details";
+import ExistingAddress from "./routes/ExistingDetails";
 
 const router = createBrowserRouter([
       {
