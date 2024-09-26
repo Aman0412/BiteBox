@@ -1,11 +1,11 @@
-import api from "../api"
-import { Link, useNavigate } from "react-router-dom"
-import { useContext, useEffect, useState } from "react"
-import Navbar from "../components/Navbar"
-import { MealPlanContext, UseridContext } from "../App"
-import Card from "../components/Card"
+import api from "../api";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import { MealPlanContext, UseridContext } from "../App";
+import Card from "../components/Card";
 
-export default function Meals(){
+export default function Meals() {
   const { userid } = useContext(UseridContext);
   const [filtered_meals, setFilteredMeals] = useState([]);
   const { mealPlan } = useContext(MealPlanContext);
@@ -19,13 +19,13 @@ export default function Meals(){
         setFilteredMeals(
           meals
             .filter((meal) => !meal.is_vegan)
-            .map((meal) => ({ ...meal, quantity: 0 }))
+            .map((meal) => ({ ...meal, quantity: 0 })),
         );
       } else if (protein_preference === "VO") {
         setFilteredMeals(
           meals
             .filter((meal) => meal.is_vegan)
-            .map((meal) => ({ ...meal, quantity: 0 }))
+            .map((meal) => ({ ...meal, quantity: 0 })),
         );
       } else {
         setFilteredMeals(meals.map((meal) => ({ ...meal, quantity: 0 })));
@@ -40,7 +40,7 @@ export default function Meals(){
   number_of_meals;
   const total_count = filtered_meals.reduce(
     (acc, current) => acc + current.quantity,
-    0
+    0,
   );
 
   function handleDecrement(id) {
@@ -49,7 +49,7 @@ export default function Meals(){
       return prevMeals.map((meal) =>
         meal.id === id && meal.quantity > 0
           ? { ...meal, quantity: meal.quantity - 1 }
-          : meal
+          : meal,
       );
     });
   }
@@ -60,7 +60,7 @@ export default function Meals(){
     if (total_count < mealPlan.number_of_meals) {
       setFilteredMeals((prevMeals) => {
         return prevMeals.map((meal) =>
-          meal.id === id ? { ...meal, quantity: meal.quantity + 1 } : meal
+          meal.id === id ? { ...meal, quantity: meal.quantity + 1 } : meal,
         );
       });
     }
@@ -70,12 +70,23 @@ export default function Meals(){
     console.log(orderid);
   }
 
-  async function handleSubmit(){
+  async function handleSubmit() {
     const res = await api.get("api/customers/me");
-    if (Array.isArray(res.data.address_details) && res.data.address_details.length > 0){
-        navigate("/existing-details", {state : {orderItems: filtered_meals.filter((meal) => meal.quantity > 0)}})
+    if (
+      Array.isArray(res.data.address_details) &&
+      res.data.address_details.length > 0
+    ) {
+      navigate("/existing-details", {
+        state: {
+          orderItems: filtered_meals.filter((meal) => meal.quantity > 0),
+        },
+      });
     } else {
-        navigate("/join-now/details", {state : {orderItems: filtered_meals.filter((meal) => meal.quantity > 0)} } );
+      navigate("/join-now/details", {
+        state: {
+          orderItems: filtered_meals.filter((meal) => meal.quantity > 0),
+        },
+      });
     }
   }
 
@@ -87,8 +98,11 @@ export default function Meals(){
         <div className="card-container">
           {filtered_meals.map((meal) => (
             <Card
+              id={meal.id}
               key={meal.id}
               calories={meal.calories}
+              is_gluten_free={meal.is_gluten_free}
+              is_dairy_free={meal.is_dairy_free}
               name={meal.name}
               image={meal.image}
               handleDecrement={() => handleDecrement(meal.id)}
@@ -106,9 +120,10 @@ export default function Meals(){
                 (mealsLeft === 1 ? " meal " : " meals ") +
                 "to pick"}
           </p>
-          
-    
-            <button className="floating-bar-button" onClick={handleSubmit}>Next</button>
+
+          <button className="floating-bar-button" onClick={handleSubmit}>
+            Next
+          </button>
         </div>
       </div>
     </div>
