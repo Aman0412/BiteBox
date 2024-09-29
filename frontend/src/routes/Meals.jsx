@@ -1,5 +1,5 @@
 import api from "../api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { MealPlanContext, UseridContext } from "../App";
@@ -66,13 +66,15 @@ export default function Meals() {
     }
   }
 
-  function createOrderItems(orderid) {
-    console.log(orderid);
-  }
+  
+  const mealsLeft = mealPlan.number_of_meals - total_count;
 
   async function handleSubmit() {
     const res = await api.get("api/customers/me");
-    if (
+    if (mealsLeft > 0){
+      return null 
+    }
+    else if (
       Array.isArray(res.data.address_details) &&
       res.data.address_details.length > 0
     ) {
@@ -90,7 +92,7 @@ export default function Meals() {
     }
   }
 
-  const mealsLeft = mealPlan.number_of_meals - total_count;
+
   return (
     <div>
       <Navbar />

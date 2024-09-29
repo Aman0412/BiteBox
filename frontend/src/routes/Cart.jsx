@@ -13,11 +13,15 @@ export default function Cart() {
   console.log(order_id);
   useEffect(() => {
     async function getOrder() {
-      const res = await api.get(`/api/orders/${order_id}/`);
-      setOrder(res.data);
+      try {
+        const res = await api.get(`/api/orders/${order_id}/`);
+        setOrder(res.data);
+      } catch (error) {
+        console.error("Failed to fetch order:", error);
+      }
     }
     getOrder();
-  }, []);
+  }, [order_id]);
   console.log(mealPlan);
   console.log(order);
 

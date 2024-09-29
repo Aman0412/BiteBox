@@ -10,6 +10,7 @@ export default function Plan() {
   const { mealPlan, setMealPlan } = useContext(MealPlanContext);
   const { userid } = useContext(UseridContext); // Use the context
   const [isSignedIn, setIsSignedIn] = useState(userid != null);
+  const [mealPrice, setMealPrice] = useState(59.99)
   const [isNextClicked, setIsNextClicked] = useState(false);
   const [deliveryPrice, setDeliveryPrice] = useState(0.0);
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ export default function Plan() {
     async function getDeliveryPrice() {
       const res = await api.get("/api/configuration/");
       console.log(res.data);
-      setDeliveryPrice(parseFloat(res.data[0].delivery_price));
+      const price = parseFloat(res.data[0].delivery_price);
+      setDeliveryPrice(price);
+      setMealPlan((plan) => ({ ...plan, price: mealPrice + price }));
     }
     getDeliveryPrice();
     console.log(deliveryPrice);
@@ -130,7 +133,7 @@ export default function Plan() {
           <div className="plan-price-info">
             <div className="plan-price-row">
               <p>Main Meals ({mealPlan.number_of_meals})</p>
-              <p>£ {mealPlan.price}</p>
+              <p>£ {mealPrice}</p>
             </div>
             <hr />
             <div className="plan-price-row">

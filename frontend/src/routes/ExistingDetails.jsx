@@ -13,7 +13,6 @@ export default function ExistingAddress() {
   const location = useLocation();
   const { orderItems } = location.state;
   const navigate = useNavigate();
-  console.log(orderItems);
 
   useEffect(() => {
     async function getCustomer() {
@@ -74,7 +73,6 @@ export default function ExistingAddress() {
       navigate("/cart", { state: { order_id: order_response.data.id } });
     }
   }
-  console.log(customer.id);
 
   const [newAddressDetails, setNewAddressDetails] = useState({
     postcode: "",
@@ -96,7 +94,6 @@ export default function ExistingAddress() {
       county: newAddressDetails.county,
       city: newAddressDetails.city,
     });
-    console.log(newadd_res);
     const order_response = await api.post("/api/orders/", {
       customer: customer.id,
       customer_address: newadd_res.data.id,
@@ -108,7 +105,6 @@ export default function ExistingAddress() {
         meal_id: item.id,
         quantity: item.quantity,
       });
-      console.log("posted");
     }
     await orderItems.forEach((item) => createOrderItem(item));
     navigate("/cart", { state: { order_id: order_response.data.id } });
