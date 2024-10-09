@@ -68,6 +68,7 @@ export default function Details() {
       customer: customer_response.data.id,
       customer_address: address_response.data.id,
       delivery_date: deliveryDate(4),
+      total_amount: 59.99
     });
     console.log(order_response.data.id);
     //CREATE ORDER-ITEMS FROM STATE

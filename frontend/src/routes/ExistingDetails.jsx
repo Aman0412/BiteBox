@@ -80,6 +80,7 @@ export default function ExistingAddress() {
         customer: customer.id,
         customer_address: selectAddress_id,
         delivery_date: deliveryDate(4),
+        total_amount: 59.99
       });
       async function createOrderItem(item) {
         await api.post("/api/orderitems/", {
@@ -118,6 +119,7 @@ export default function ExistingAddress() {
       customer: customer.id,
       customer_address: newadd_res.data.id,
       delivery_date: "2024-10-21",
+      total_amount: 59.99
     });
     async function createOrderItem(item) {
       await api.post("/api/orderitems/", {
