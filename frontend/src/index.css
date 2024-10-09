@@ -254,6 +254,12 @@ fieldset {
 }
 
 .form-button {
+  background-color: #679b09;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
   margin-top: 1rem;
   height: 8vh;
   border-radius: 10px;
@@ -425,7 +431,12 @@ fieldset {
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: fit-content;
+  margin: 1rem auto;
+  border-radius: 12px;
 }
 
 .details-form {
@@ -440,9 +451,14 @@ fieldset {
 }
 
 .details-submit {
-  width: 25rem;
   align-self: flex-end;
-  border-radius: 12px;
+  border-radius: 6px;
+  background-color: #679b09;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  font-weight: 500;
+  width: 100%;
   height: 2rem;
   margin-top: 2rem;
 }
@@ -756,5 +772,51 @@ fieldset {
   font-size: 1.2rem;
 }
 
-.moreinfo-image{
+.stripe-checkout-container{
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding:  2rem 2rem 2rem;
+  margin-top: 1rem;
 }
+
+.stripe-checkout-container > form {
+  width: 100%; /* Ensure the form takes up 100% width */
+}
+
+.payment-submit{
+  margin-top: 1rem;
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+  height: 4vh;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: #679b09;
+  color: #FFFFFF;
+}
+
+.circle-check{
+  background-color: #679b09;
+  height: 150px;
+  width: 150px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: check 1s ease-in ;
+}
+
+@keyframes check {
+  0% {
+    height: 0px;
+    width: 0px;
+  }
+
+
+}
+

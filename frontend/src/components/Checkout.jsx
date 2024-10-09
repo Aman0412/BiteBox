@@ -1,21 +1,42 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import CheckoutForm from "./CheckoutForm.jsx";
-
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
+import CheckoutForm from "./CheckoutForm";
+import PropTypes from 'prop-types';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PK);
 
-export default function App() {
+export default function Checkout({ clientSecret }) {
   const options = {
-    // passing the client secret obtained from the server
-    clientSecret: "{{CLIENT_SECRET}}",
+    clientSecret,
+    appearance: {
+      theme: 'stripe',
+      variables: {
+        colorPrimary: '#0570de',
+        colorBackground: '#ffffff',
+        colorText: '#303238',
+        colorDanger: '#df1b41',
+        fontFamily: 'Helvetica Neue, Helvetica, sans-serif',
+        spacingUnit: '2px',
+        borderRadius: '4px',
+      },
+      rules: {
+        '.Input': {
+          width: '100%', /* Ensure the input elements take up 100% width */
+        },
+        '.PaymentElement': {
+          width: '100%', /* Ensure the PaymentElement takes up 100% width */
+        },
+      },
+    },
   };
 
   return (
-    <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm />
-    </Elements>
+      <Elements stripe={stripePromise} options={options}>
+        <CheckoutForm />
+      </Elements>
   );
 }
+
+Checkout.propTypes = {
+  clientSecret: PropTypes.string.isRequired,
+};

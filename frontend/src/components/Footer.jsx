@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 
 const Footer = () => {
   const styles = {
@@ -7,30 +7,25 @@ const Footer = () => {
       color: '#ffffff',
       padding: '2rem 0',
       fontSize: '14px',
-      marginTop:"10rem"
     },
     container: {
       width: '100%',
-      color: '#ffffff',
       maxWidth: '1200px',
       margin: '0 auto',
       padding: '0 1rem',
     },
     grid: {
       display: 'grid',
-      color: '#ffffff',
       gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
       gap: '2rem',
     },
     heading: {
       fontSize: '18px',
-      color: '#ffffff',
       fontWeight: 'bold',
       marginBottom: '1rem',
     },
     list: {
       listStyle: 'none',
-      color: '#ffffff',
       padding: 0,
       margin: 0,
     },
@@ -40,7 +35,6 @@ const Footer = () => {
     },
     socialIcons: {
       display: 'flex',
-      color: '#ffffff',
       gap: '1rem',
       marginTop: '1rem',
     },
@@ -51,7 +45,6 @@ const Footer = () => {
     },
     copyright: {
       marginTop: '2rem',
-      color: '#ffffff',
       textAlign: 'center',
       borderTop: '1px solid #555555',
       paddingTop: '1rem',
@@ -64,13 +57,22 @@ const Footer = () => {
         <div style={styles.grid}>
           <div>
             <h2 style={styles.heading}>About Us</h2>
-            <p style={{color:"#ffffff"}}>We are a company dedicated to providing excellent services and products to our customers.</p>
+            <p>We are a company dedicated to providing excellent services and products to our customers.</p>
+          </div>
+          <div>
+            <h2 style={styles.heading}>Quick Links</h2>
+            <ul style={styles.list}>
+              <li><a href="#" style={styles.link}>Home</a></li>
+              <li><a href="#" style={styles.link}>Products</a></li>
+              <li><a href="#" style={styles.link}>Services</a></li>
+              <li><a href="#" style={styles.link}>Contact</a></li>
+            </ul>
           </div>
           <div>
             <h2 style={styles.heading}>Contact Us</h2>
-            <p style={{color:"#ffffff"}}>123 Main St, Anytown, USA 12345</p>
-            <p style={{color:"#ffffff"}}>Phone: (123) 456-7890</p>
-            <p style={{color:"#ffffff"}}>Email: info@example.com</p>
+            <p>123 Main St, Anytown, USA 12345</p>
+            <p>Phone: (123) 456-7890</p>
+            <p>Email: info@example.com</p>
           </div>
           <div>
             <h2 style={styles.heading}>Follow Us</h2>
@@ -94,7 +96,7 @@ const Footer = () => {
           </div>
         </div>
         <div style={styles.copyright}>
-          <p style={{color:"#ffffff"}}>&copy; {new Date().getFullYear()} Bitebox. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
         </div>
       </div>
     </footer>

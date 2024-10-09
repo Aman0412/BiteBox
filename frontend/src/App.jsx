@@ -12,6 +12,8 @@ import ProtectedRoute from "./components/ProtectedRoutes";
 import Login from "./routes/Login";
 import Details from "./routes/Details";
 import ExistingAddress from "./routes/ExistingDetails";
+import PaymentPage from "./routes/PaymentPage";
+import PaymentSuccess from "./routes/PaymentSuccess";
 
 const router = createBrowserRouter([
       {
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
         <ExistingAddress />
       </ProtectedRoute>
     )
+   },
+   {
+    path: "test/",
+    element: <PaymentPage />
+   },
+   {
+    path:"order-confirmation/",
+    element:<PaymentSuccess />  
    }
 ]);
 

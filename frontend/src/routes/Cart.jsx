@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import CartItem from "../components/CartItem";
 import Navbar from "../components/Navbar";
 import { MealPlanContext } from "../App";
+import PaymentPage from "./PaymentPage";
 
 export default function Cart() {
   const location = useLocation();
@@ -25,6 +26,9 @@ export default function Cart() {
   console.log(mealPlan);
   console.log(order);
 
+  if (order === null){
+    return <div></div>
+  } else{
   return (
     <div>
       <Navbar />
@@ -59,27 +63,28 @@ export default function Cart() {
                 <p>{mealPlan.meal_size === "S" ? "Standard" : "Large"}</p>
               </div>
               <hr />
-              <div className="payment-info">
-                <p>Delivery Date</p>{" "}
-                <p>{order != null && order.delivery_date}</p>
-              </div>
+              {order != null &&<div className="payment-info">
+                <p>Delivery Date</p>
+                <p>{order.delivery_date}</p>
+              </div>}
               <hr />
-              <label htmlFor="discount">Discount Code</label>
+              {/* <label htmlFor="discount">Discount Code</label>
               <input type="text" style={{ height: "5vh" }} id="discount" />
-              <hr />
+              <hr /> */}
               <div className="payment-info">
                 <p style={{ fontWeight: 900 }}>Total Price:</p>{" "}
                 <p>£{mealPlan.price}</p>
               </div>
             </div>
-            <button className="payment-button">Proceed to Payment</button>
+            <PaymentPage price={mealPlan.price}/>
+            {/* <button className="payment-button">Proceed to Payment</button> */}
           </div>
         </div>
       </div>
     </div>
   );
+  }
 }
-
 {
   /* < */
 }

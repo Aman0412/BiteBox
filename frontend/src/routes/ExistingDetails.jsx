@@ -48,6 +48,26 @@ export default function ExistingAddress() {
     setUseAnotherAddress(true);
   }
 
+  function deliveryDate(daysToAdd){
+    const currentDate = new Date();
+    let addedDays = 0;
+
+    while (addedDays < daysToAdd) {
+      currentDate.setDate(currentDate.getDate() + 1);
+
+      // Check if the current day is a weekday (Monday to Friday)
+      if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+        addedDays++;
+      }
+    }
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+
   async function handleSubmit() {
     if (useAnotherAddress) {
       // change the screen to have new address input
@@ -59,7 +79,7 @@ export default function ExistingAddress() {
       const order_response = await api.post("/api/orders/", {
         customer: customer.id,
         customer_address: selectAddress_id,
-        delivery_date: "2024-09-21",
+        delivery_date: deliveryDate(4),
       });
       async function createOrderItem(item) {
         await api.post("/api/orderitems/", {
@@ -69,7 +89,7 @@ export default function ExistingAddress() {
         });
         console.log("posted");
       }
-      await orderItems.forEach((item) => createOrderItem(item));
+      await Promise.all(orderItems.map((item) => createOrderItem(item)));
       navigate("/cart", { state: { order_id: order_response.data.id } });
     }
   }
@@ -106,7 +126,7 @@ export default function ExistingAddress() {
         quantity: item.quantity,
       });
     }
-    await orderItems.forEach((item) => createOrderItem(item));
+    await Promise.all(orderItems.map((item) => createOrderItem(item)));
     navigate("/cart", { state: { order_id: order_response.data.id } });
   }
 
@@ -228,6 +248,7 @@ export default function ExistingAddress() {
   );
 }
 
+// eslint-disable-next-line react/prop-types
 function AddressCard({ id, street, city, postcode, selectAddress, selected }) {
   return (
     <div

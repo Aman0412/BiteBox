@@ -85,6 +85,7 @@ class MealPlan(models.Model):
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
     customer_address = models.ForeignKey(CustomerAddress, on_delete=models.PROTECT)
+    total_amount = models.DecimalField(max_digits=10 ,decimal_places=2)
     delivery_date = models.DateField()
     ordered_at = models.DateTimeField(auto_now_add=True)
 

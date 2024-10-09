@@ -16,6 +16,7 @@ export default function Login(){
         username:"",
         password:""
     });
+    const [failedLogin, setFailedLogin] = useState(false)
 
     function handleChange(event){
         setUserObject(prevUserObject => {
@@ -28,6 +29,7 @@ export default function Login(){
 
     async function handleSubmit(event){
         event.preventDefault();
+        setFailedLogin(false)
         try{
             //get refresh and access tokens and set them to local storage
             const res = await api.post("/auth/jwt/create/", {
@@ -42,13 +44,12 @@ export default function Login(){
                 }
             })
             setUserid(user_res.data.id)
+            navigate("/join-now/plans/")
 
             
         } catch (error){
             console.log(error)
-        }
-        finally{
-            navigate("/join-now/plans/")
+            setFailedLogin(true)
         }
     }
 
@@ -83,6 +84,7 @@ export default function Login(){
               <p>Are you a new customer?</p> 
               <Link style={{color:"blue"}} to="/join-now/plans"> Click Here</Link>
             </div>
+            {failedLogin && <p style={{color:"red"}}>Login failed, check your username/password</p>}
             <button onClick={handleSubmit}>Login</button>
           </form>
         </div>

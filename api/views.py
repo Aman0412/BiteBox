@@ -1,11 +1,21 @@
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets
 from rest_framework import mixins
 from .models import Meal, Customer, Order, OrderItem, CustomerAddress, Configuration
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import MealSerializer, CustomerSerializer, OrderSerializer, OrderItemSerializer, CustomerAddressSerializer,UpdateCustomerSerializer, CreateOrderItemSerializer, ConfigurationSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework import status
+from django.conf import settings
+
+import stripe
+
+
+stripe.api_key = settings.SECRET_KEY
 # Create your views here.
 class MealViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -65,3 +75,26 @@ class ConfigurationView(viewsets.ReadOnlyModelViewSet):
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = ConfigurationSerializer
     queryset = Configuration.objects.all()
+
+class CreatePaymentIntentView(viewsets.ViewSet):
+    @action(detail=False, methods=['post'])
+    def create_payment_intent(self, request):
+        try:
+            amount = request.data.get('amount')
+            
+            if not amount:
+                return Response({'error': 'Amount is required'}, status=status.HTTP_400_BAD_REQUEST)
+
+            intent = stripe.PaymentIntent.create(
+                amount=int(amount * 100),  # Convert to cents
+                currency='usd',
+            )
+
+            return Response({
+                'clientSecret': intent.client_secret
+            })
+
+        except stripe.error.StripeError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': 'An unexpected error occurred'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

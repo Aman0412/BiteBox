@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
-import { UseridContext } from "../App";
+import { useState } from "react";
+// import class MealPlan(models.Model):
 import { useNavigate, useLocation } from "react-router";
 import Navbar from "../components/Navbar";
 import api from "../api";
 
 export default function Details() {
-  const { userid } = useContext(UseridContext);
+  // const { userid } = useContext(UseridContext);
   const location = useLocation();
   // const [customer, setCustomer] = useState({})
   // const { createOrderItems } = location.state
@@ -18,6 +18,25 @@ export default function Details() {
     county: "",
     city: "",
   });
+
+  function deliveryDate(daysToAdd){
+    const currentDate = new Date();
+    let addedDays = 0;
+
+    while (addedDays < daysToAdd) {
+      currentDate.setDate(currentDate.getDate() + 1);
+
+      // Check if the current day is a weekday (Monday to Friday)
+      if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
+        addedDays++;
+      }
+    }
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
   // console.log(userid)
 
   //update customer details
@@ -48,7 +67,7 @@ export default function Details() {
     const order_response = await api.post("/api/orders/", {
       customer: customer_response.data.id,
       customer_address: address_response.data.id,
-      delivery_date: "2024-10-21",
+      delivery_date: deliveryDate(4),
     });
     console.log(order_response.data.id);
     //CREATE ORDER-ITEMS FROM STATE
@@ -60,7 +79,7 @@ export default function Details() {
       });
       console.log("posted");
     }
-    await location.state.orderItems.forEach((item) => createOrderItem(item));
+    await Promise.all(location.state.orderItems.forEach((item) => createOrderItem(item)));
     navigate("/cart", { state: { order_id: order_response.data.id } });
   }
 
