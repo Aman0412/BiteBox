@@ -2,13 +2,13 @@
 
 BiteBox is a meal planning and ordering application designed to help users manage their dietary preferences and meal plans efficiently. The application consists of a frontend built with React and Vite, and a backend powered by Django. Users can browse meals, create meal plans, and place orders seamlessly.
 
-New Customer Demo
+New Customer Demo Video: 
 https://github.com/user-attachments/assets/b0020058-846a-420d-aeb6-eb3d09e85d2e
 
-Existing Customer Demo
+Existing Customer Demo Video
 https://github.com/user-attachments/assets/a59135b7-03d1-4a93-a96e-fc55a38f8c32
 
-Adding a New Meal Demo
+Adding a New Meal Demo Video
 https://github.com/user-attachments/assets/0c0bd2e8-3d2b-4199-81f5-ea11cd8f876a
 
 ## Features
