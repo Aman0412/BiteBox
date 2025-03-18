@@ -1,16 +1,16 @@
 import { useState } from "react";
 // import class MealPlan(models.Model):
-import { useNavigate, useLocation } from "react-router";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import api from "../api";
 
 export default function Details() {
   // const { userid } = useContext(UseridContext);
   const location = useLocation();
+  const navigate = useNavigate();
   // const [customer, setCustomer] = useState({})
   // const { createOrderItems } = location.state
 
-  const navigate = useNavigate();
   const [customerDetails, setCustomerDetails] = useState({
     postcode: "",
     address: "",
@@ -68,7 +68,6 @@ export default function Details() {
       customer: customer_response.data.id,
       customer_address: address_response.data.id,
       delivery_date: deliveryDate(4),
-      total_amount: 59.99
     });
     console.log(order_response.data.id);
     //CREATE ORDER-ITEMS FROM STATE
@@ -80,7 +79,7 @@ export default function Details() {
       });
       console.log("posted");
     }
-    await Promise.all(location.state.orderItems.forEach((item) => createOrderItem(item)));
+    await Promise.all(location.state.orderItems.map((item) => createOrderItem(item)));
     navigate("/cart", { state: { order_id: order_response.data.id } });
   }
 

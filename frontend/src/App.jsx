@@ -16,59 +16,59 @@ import PaymentPage from "./routes/PaymentPage";
 import PaymentSuccess from "./routes/PaymentSuccess";
 
 const router = createBrowserRouter([
-      {
-        path: "/",
-        element: <Homepage />,
-    },
-      {
-        path: "join-now/plans",
-        element: <Plan />    
-    },
-      {
-        path: "join-now/meals",
-        element: (
-          <ProtectedRoute>
-            <Meals />
-          </ProtectedRoute>
-        )
+  {
+    path: "/",
+    element: <Homepage />,
+  },
+  {
+    path: "join-now/plans",
+    element: <Plan />    
+  },
+  {
+    path: "join-now/meals",
+    element: (
+      <ProtectedRoute>
+        <Meals />
+      </ProtectedRoute>
+    )
 
-    },
-    {
-      path:"login/",
-      element:<Login />
-   },
-   {
+  },
+  {
+    path:"login/",
+    element:<Login />
+  },
+  {
     path:"join-now/details",
     element:(
       <ProtectedRoute>
         <Details />
       </ProtectedRoute>
     )
-   },
-   {
+  },
+  {
     path:"/cart",
     element:(
       <ProtectedRoute>
         <Cart />
       </ProtectedRoute>
     )
-   },
-   {
+  },
+  {
     path:"/existing-details",
     element: (
       <ProtectedRoute>
         <ExistingAddress />
       </ProtectedRoute>
     )
-   },
-   {
+  },
+  {
     path: "test/",
     element: <PaymentPage />
-   },
-   {
+  },
+  {
     path:"order-confirmation/",
     element:<PaymentSuccess />  
-   }
+  }
 ]);
 
 export const UseridContext = createContext(null)

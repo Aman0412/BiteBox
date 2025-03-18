@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 export default function ProtectedRoute({ children }){
     const [isAuth, setIsAuth] = useState(null);
     const navigate = useNavigate();
+    
     useEffect(() => {
         try{
             auth();
@@ -16,8 +17,14 @@ export default function ProtectedRoute({ children }){
             console.log(error)
         }
     }, [])
+    
     const refreshToken = async () => {
         const refreshToken = localStorage.getItem(REFRESH_TOKEN)
+        if (!refreshToken) {
+            setIsAuth(false);
+            return;
+        }
+        
         try{
             const res = await api.post("/auth/jwt/refresh/", {
                 refresh: refreshToken
@@ -38,14 +45,19 @@ export default function ProtectedRoute({ children }){
             setIsAuth(false);
             return
         }
-        const decoded = jwtDecode(token);
-        const tokenExpiration = decoded.exp
-        const now = Date.now() / 1000
+        try {
+            const decoded = jwtDecode(token);
+            const tokenExpiration = decoded.exp
+            const now = Date.now() / 1000
 
-        if (tokenExpiration < now) {
-            await refreshToken();
-        }else{
-            setIsAuth(true);
+            if (tokenExpiration < now) {
+                await refreshToken();
+            } else {
+                setIsAuth(true);
+            }
+        } catch (error) {
+            console.log(error);
+            setIsAuth(false);
         }
     }
 
@@ -53,5 +65,5 @@ export default function ProtectedRoute({ children }){
         return <div className="loading">Loading...</div>
     }
 
-    return isAuth ? children : navigate("/join-now/plans")
+    return isAuth ? children : navigate("/login");  // Navigate to login instead
 }
